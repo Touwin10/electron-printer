@@ -1,12 +1,17 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
-const path = require('path')
-
+const {
+  app,
+  ipcMain,
+  BrowserWindow
+} = require('electron');
+const path = require('path');
+const printer = require('./print');
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+let mainWindow;
+let printerWindow;
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
@@ -16,8 +21,8 @@ function createWindow () {
     }
   })
 
-  // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
+  // and load the URL of the app.
+  mainWindow.loadURL('YOUR_URL_WEBSITE');
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -29,6 +34,15 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+
+  // Create the printing window.
+  printerWindow = new BrowserWindow({
+    show: false
+  });
+  printerWindow.loadFile('print.html')
+
+
 }
 
 // This method will be called when Electron has finished
@@ -49,5 +63,10 @@ app.on('activate', function () {
   if (mainWindow === null) createWindow()
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+// Listen for printing data event from an hosting website
+ipcMain.on('print-data', (event, data) => {
+  if (printerWindow) {
+    printerWindow.hide();
+    printer.print(data, printerWindow);
+  }
+})
