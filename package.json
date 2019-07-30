@@ -1,12 +1,12 @@
 {
-  "name": "electron-quick-start",
+  "name": "electron-printer",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "A minimal Electron application to print from your hosting website",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/Touwin10/electron-printer",
   "keywords": [
     "Electron",
     "quick",
