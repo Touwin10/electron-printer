@@ -17,6 +17,6 @@
   "author": "Touwin10",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^5.0.8"
+    "electron": "^15.5.5"
   }
 }
